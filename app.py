@@ -13,7 +13,11 @@ if uploaded_file is not None:
     st.subheader("Nội dung gốc")
     st.json(data)
 
-    # Chọn ngôn ngữ đích
+    # Chọn ngôn ngữ gốc và ngôn ngữ đích
+    source_lang = st.selectbox(
+        "📝 Chọn ngôn ngữ gốc",
+        ["auto", "vi", "en", "fr", "de", "ja", "ko", "zh-cn"]
+    )
     target_lang = st.selectbox(
         "🌍 Chọn ngôn ngữ dịch",
         ["en", "fr", "de", "ja", "ko", "zh-cn", "vi"]
@@ -22,7 +26,7 @@ if uploaded_file is not None:
     if st.button("🚀 Dịch ngay"):
         translated_data = {}
         for key, value in data.items():
-            translated_text = GoogleTranslator(source="auto", target=target_lang).translate(value)
+            translated_text = GoogleTranslator(source=source_lang, target=target_lang).translate(value)
             translated_data[key] = translated_text
 
         st.subheader("📖 JSON đã dịch")
